@@ -11,11 +11,13 @@
 """
 # utilities we import from Werkzeug and Jinja2 that are unused
 # in the module but are exported as public interface.
+# 依赖两个核心 package，jinja2 和 werkzeug，jinja2 是提供模板渲染的， werkzeug 是提供 WSGI 服务的
 from jinja2 import escape
 from jinja2 import Markup
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
+# 核心模块和方法都是通过相对路径引用的
 from . import json
 from ._compat import json_available
 from .app import Flask
@@ -57,4 +59,5 @@ from .signals import template_rendered
 from .templating import render_template
 from .templating import render_template_string
 
+# setup.py 在此文件中正则匹配 __version__ 寻找版本信息
 __version__ = "1.1.2.dev"
