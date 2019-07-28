@@ -279,6 +279,7 @@ def get_version(ctx, param, value):
     ctx.exit()
 
 
+# --version 的参数设置，调用了 Python 源码 click 模块的 Option 类
 version_option = click.Option(
     ["--version"],
     help="Show the flask version",
@@ -441,6 +442,7 @@ class AppGroup(click.Group):
         :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
         unless it's disabled by passing ``with_appcontext=False``.
         """
+        # 重载 command 方法，实现 with_appcontext 装饰器的回调
         wrap_for_ctx = kwargs.pop("with_appcontext", True)
 
         def decorator(f):
@@ -943,6 +945,7 @@ def routes_command(sort, all_methods):
 
 
 cli = FlaskGroup(
+    # 显示在交互界面，提示开发者如何使用交互
     help="""\
 A general utility script for Flask applications.
 
@@ -963,6 +966,9 @@ debug mode.
 
 
 def main(as_module=False):
+    # args=sys.argv[1:] 代表 script 之后的变量
+    # prog_name 默认是 sys.argv[0]，这里从命令行启动，如果 as_module 为 True 则赋值为 "python -m flask"，否则为 None
+    # cli 是 command line interface
     # TODO omit sys.argv once https://github.com/pallets/click/issues/536 is fixed
     cli.main(args=sys.argv[1:], prog_name="python -m flask" if as_module else None)
 
